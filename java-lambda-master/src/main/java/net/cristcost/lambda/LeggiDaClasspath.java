@@ -9,6 +9,7 @@ public class LeggiDaClasspath {
 
 	public static void main(String[] args) {
 		
+		
 			InputStream input = null;
 			try {
 				input =  new FileInputStream(ClassLoader.getSystemClassLoader().getResource(".").getPath()+"config.properties");
