@@ -9,17 +9,8 @@ public class LeggiDaClasspath {
 
 	public static void main(String[] args) {
 		
-		
-			InputStream input = null;
-			try {
-				input =  new FileInputStream(ClassLoader.getSystemClassLoader().getResource(".").getPath()+"config.properties");
-			} catch (IOException ex) {
-	            ex.printStackTrace();
-	            System.out.println("non l'ho trovato con il JAR quindi vado su resources");
-	            input = LeggiDaClasspath.class.getClassLoader().getResourceAsStream("resources/config.properties");
-	        }
-	        try{
-
+			try (InputStream input =  new FileInputStream(ClassLoader.getSystemClassLoader().getResource(".").getPath()+"config.properties")){
+			
 	        	System.out.println(LeggiDaClasspath.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	        	System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
 	        	
@@ -35,13 +26,7 @@ public class LeggiDaClasspath {
 
 	        } catch (IOException ex) {
 	            ex.printStackTrace();
-	        } finally {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+	        }
 
 
 	}
