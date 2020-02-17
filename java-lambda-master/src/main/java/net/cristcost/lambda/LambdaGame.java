@@ -16,6 +16,7 @@ package net.cristcost.lambda;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -25,7 +26,8 @@ public class LambdaGame {
 
   // this class runs at least with Java 8
   public static void main(String[] args) {
-	  angeloHowManyConsonants();
+	indiceFile();
+	angeloHowManyConsonants();
     howManyConsonants();
     howManyConsonantsWithoutTypeInference();
     howManyConsonantsWithName();
@@ -40,6 +42,20 @@ public class LambdaGame {
   static List<String> list =
       Arrays.asList("Cristiano", "Michele", "Sergio", "Giuseppe", "Stefano");
 
+  public static void indiceFile() {
+	  List<String> listFile = Arrays.asList("sitemap_index_1.xml", "sitemap101.xml", "sitema1p002.xml", "sitemap003.xml", "sitemap004.xml");
+	  OptionalInt out = listFile.stream() // process with a stream
+	        .map((p) -> p.replaceAll("[^\\d]", "")) // rimuove tutto tranne che i numeri  
+	        .mapToInt((a) -> Integer.parseInt(a))
+	        .max()
+	        //.forEach( a -> System.out.println(a))
+	        ;
+	  
+	  System.out.println(out.getAsInt());
+	        
+	    
+  }
+  
   public static void angeloHowManyConsonants() {
 	    
 	    Integer out = list.stream() // process with a stream
@@ -47,7 +63,7 @@ public class LambdaGame {
 	        .mapToInt((a) -> a.length()) // count the length of the remaining word
 	        .sum();
 	    System.out.println("angeloHowManyConsonants: CI SONO " + out + " CONSONANTI");
-	  }
+  }
   
   // lets count with lambda how many consonants in all the names
   public static void howManyConsonants() {
