@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("boxing")
@@ -26,6 +27,7 @@ public class LambdaGame {
 
   // this class runs at least with Java 8
   public static void main(String[] args) {
+	filtro();
 	indiceFile();
 	angeloHowManyConsonants();
     howManyConsonants();
@@ -42,8 +44,17 @@ public class LambdaGame {
   static List<String> list =
       Arrays.asList("Cristiano", "Michele", "Sergio", "Giuseppe", "Stefano");
 
-  public static void indiceFile() {
+  public static void filtro() {
 	  List<String> listFile = Arrays.asList("sitemap_index_1.xml", "sitemap101.xml", "sitema1p002.xml", "sitemap003.xml", "sitemap004.xml");
+	  listFile = listFile.stream() // process with a stream
+	        .filter(f->f.startsWith("sitemap_index"))
+	        .collect(Collectors.toList())
+	        ;
+	  listFile.forEach(System.out::println); 
+  }
+  
+  public static void indiceFile() {
+	  List<String> listFile = Arrays.asList("sitemap_index_1.xml", "sitemap101.xml", "sitemap002.xml", "sitemap003.xml", "sitemap004.xml");
 	  OptionalInt out = listFile.stream() // process with a stream
 	        .map((p) -> p.replaceAll("[^\\d]", "")) // rimuove tutto tranne che i numeri  
 	        .mapToInt((a) -> Integer.parseInt(a))
@@ -52,8 +63,6 @@ public class LambdaGame {
 	        ;
 	  
 	  System.out.println(out.getAsInt());
-	        
-	    
   }
   
   public static void angeloHowManyConsonants() {
